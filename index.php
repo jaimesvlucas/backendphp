@@ -99,7 +99,29 @@ switch($control[0]) {
       default: exit(json_encode(["Bienvenido al Backend con routes"]));
     }
     break;
+    case "mensajes":
+      require_once("controllers/mensajes.controller.php");
+      $mensajes = new MensajesController($conexion);
+      switch(METODO) {
+        case "GET":
+          $mensajes->obtenerMensajes();
+          break;
 
+        case "POST":
+          $mensajes->enviarMensaje();
+          break;
+
+        case "PUT":
+          //$mensajes->editarNota();
+          break;
+
+        case "DELETE":
+          $mensajes->eliminarMensaje($control[1]);
+          break;
+
+        default: exit(json_encode(["Bienvenido al Backend con routes"]));
+      }
+      break;
     default:
     exit(json_encode(["Bienvenido al Backend con routes"]));
 }
